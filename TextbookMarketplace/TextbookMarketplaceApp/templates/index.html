@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Webshop</title>{% endblock %}
+
+{% block content %}
+    <form method="post" class="form">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-10">
+                <input id="searchbar" name="searchtext" type="text" class="form-text form-control form-text" value="{{searchtext}}" />
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-primary form-control" value="Search" />
+            </div>
+        </div>
+    </form>
+    {% if products|length == 0 %}
+        <div class="text-center center-items">
+            <h3>No products to show.</h3>
+        </div>
+    {% else %}
+        <div class="row col-md-12 col-center">
+            {% for product in products %}
+                <div class="card">
+                    {% if product.image %}
+                        <img class="card-img-top" src="{{ product.image.url }}" alt="Product Image">
+                    {% else %}
+                        <img class="card-img-top" src="https://via.placeholder.com/150" alt="No Image Available">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">Author: {{ product.author }}</p>
+                        <p class="card-text">Price: {{ product.price }} HUF</p>
+                        <p class="card-text">Category: {{ product.category }}</p>
+                        <p class="card-text">Posted: {{ product.date_posted|date:"F d, Y" }}</p>
+                        {% if request.user.is_authenticated %}
+                            <a href="{{ product.get_absolute_url }}" class="btn btn-info">Information</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

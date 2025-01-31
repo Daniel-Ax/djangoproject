@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>{{ product.name }} details</title>{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>{{ product.name }} details</h2>
+        <p>Author: {{ product.author }}</p>
+        <p>Price: {{ product.price }} HUF</p>
+        <p>Category: {{ product.category }}</p>
+        <p>Date Posted: {{ product.date_posted|date:"F d, Y" }}</p>
+        <p>Seller email: {{ product.seller.email }}
+        <p>Description: {{ product.description }}</p>
+        {% if product.seller == user %}
+            <form action="{% url 'delete_product' product.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Delete">
+            </form>
+        {% endif %}
+        <br />
+        <a href="/" class="btn btn-info">Back to Products</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Settings</title>{% endblock %}
+
+{% block content %}
+<h2>Settings</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Change password</h3>
+            <form method="post" class="form">
+                {% csrf_token %}
+                {{ form_pwdchange.as_p }}
+                <button type="submit" name="pwdchange" class="btn btn-primary">OK</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h3>Change email</h3>
+            <form method="post" class="form">
+                {% csrf_token %}
+                {{ form_emailchange.as_p }}
+                <button type="submit" name="emailchange" class="btn btn-primary">OK</button>
+            </form>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <h3>Delete account</h3>
+        <h4>Warning: clicking this button will delete your account and all associated listings.</h4>
+        <form method="post" class="form">
+            {% csrf_token %}
+            <button type="submit" name="deluser" class="btn btn-outline-danger">Delete my account</button>
+        </form>
+    </div>
+{% endblock %}
