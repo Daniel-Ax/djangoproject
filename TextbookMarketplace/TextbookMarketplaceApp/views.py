@@ -22,6 +22,7 @@ class DeleteProductView(LoginRequiredMixin, View):
             if os.path.isfile(product.image.path):
                 os.remove(product.image.path)
         product.delete()
+        #stfu
         return redirect('index')
 
 
