@@ -1,7 +1,6 @@
 # Sample WebShop Python Django
-TextbookMarketplace
-Team Project 2023-11-02
-Django Initial 2023-11-14
+
+Django Initial 2025-01-31
 
 How to dev this project:
 
