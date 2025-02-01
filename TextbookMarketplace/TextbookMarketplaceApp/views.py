@@ -182,6 +182,16 @@ class AddToCartView(LoginRequiredMixin, View):
         request.session['cart'] = cart
         return redirect('cart')  # Kosár oldalra irányítás
 
+class RemoveFromCartView(LoginRequiredMixin, View):
+    def post(self, request, product_id):
+        cart = request.session.get('cart', {})
+
+        # Ha létezik a termék a kosárban, töröljük
+        if str(product_id) in cart:
+            del cart[str(product_id)]
+            request.session['cart'] = cart
+
+        return redirect('cart')
 
 class CartView(LoginRequiredMixin, View):
     template_name = 'cart.html'

@@ -14,7 +14,8 @@ from .views import (
     ProductDetailView,
     DeleteProductView,
     AddToCartView, 
-    CartView
+    CartView,
+    RemoveFromCartView
 
 )
 
@@ -30,6 +31,7 @@ urlpatterns = [
     path('product/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
     path('add-to-cart/<int:product_id>/', AddToCartView.as_view(), name='add_to_cart'),
     path('cart/', CartView.as_view(), name='cart'),
+    path('remove-from-cart/<int:product_id>/', RemoveFromCartView.as_view(), name='remove_from_cart'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

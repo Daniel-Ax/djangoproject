@@ -12,7 +12,12 @@
                         <span class="item-name">{{ item.product.name }}</span>
                         <span class="item-quantity">Quantity: {{ item.quantity }}</span>
                         <span class="item-subtotal">Subtotal: {{ item.subtotal }} HUF</span>
+                        
                     </div>
+                    <form method="POST" action="{% url 'remove_from_cart' item.product.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                    </form>
                 </li>
             {% endfor %}
         </ul>
