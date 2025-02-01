@@ -31,12 +31,10 @@
         <ul class="navbar-nav ml-auto">
             {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'my_products' %}">My Models</a>
-                </li>
-                <!--<li class="nav-item">
-                    <a class="nav-link" href="{% url 'sell_product' %}">Sell notes</a>
-                </li>
-            -->
+                    <a class="nav-link" href="{% url 'cart' %}">
+                        <i class="bi bi-cart-fill"></i>  <!-- Kosár ikon -->
+                    </a>
+                </li>    
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'settings' %}">Settings</a>
                 </li>

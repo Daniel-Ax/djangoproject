@@ -12,6 +12,11 @@ from django.views.generic import TemplateView
 from .forms import SellNotesForm, RegistrationForm, EmailChangeForm
 from .models import Product
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views import View
+from .models import Product
+
 
 class DeleteProductView(LoginRequiredMixin, View):
     def post(self, request, product_id):
@@ -161,3 +166,45 @@ class ProductDetailView(LoginRequiredMixin, TemplateView):
         pk = kwargs.get('pk')
         context['product'] = get_object_or_404(Product, pk=pk)
         return context
+
+
+class AddToCartView(LoginRequiredMixin, View):
+    def post(self, request, product_id):
+        product = get_object_or_404(Product, id=product_id)
+        cart = request.session.get('cart', {})
+
+        # Kosár frissítése
+        if str(product_id) in cart:
+            cart[str(product_id)] += 1
+        else:
+            cart[str(product_id)] = 1
+
+        request.session['cart'] = cart
+        return redirect('cart')  # Kosár oldalra irányítás
+
+
+class CartView(LoginRequiredMixin, View):
+    template_name = 'cart.html'
+
+    def get(self, request, *args, **kwargs):
+        cart = request.session.get('cart', {})
+        products = Product.objects.filter(id__in=cart.keys())
+
+        cart_items = []
+        total_price = 0
+
+        for product in products:
+            quantity = cart[str(product.id)]
+            subtotal = product.price * quantity
+            total_price += subtotal
+            cart_items.append({
+                'product': product,
+                'quantity': quantity,
+                'subtotal': subtotal
+            })
+
+        context = {
+            'cart_items': cart_items,
+            'total_price': total_price
+        }
+        return render(request, self.template_name, context)

@@ -12,7 +12,10 @@ from .views import (
     LogoutView,
     SettingsView,
     ProductDetailView,
-    DeleteProductView
+    DeleteProductView,
+    AddToCartView, 
+    CartView
+
 )
 
 urlpatterns = [
@@ -25,6 +28,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('settings/', SettingsView.as_view(), name='settings'),
     path('product/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
+    path('add-to-cart/<int:product_id>/', AddToCartView.as_view(), name='add_to_cart'),
+    path('cart/', CartView.as_view(), name='cart'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

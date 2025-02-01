@@ -44,3 +44,115 @@
         width: 30%;
     }
 }
+
+/* Kosár konténer stílusok */
+.cart-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #4d4d4d; /* Világosabb szürke a sötét háttérhöz */
+    color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Cím stílus */
+.cart-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #f1f1f1;
+    border-bottom: 2px solid #666666;
+    padding-bottom: 10px;
+}
+
+/* Kosár elemek */
+.cart-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #5c5c5c;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.cart-item:hover {
+    background-color: #6d6d6d; /* Hover effektus */
+}
+
+/* Termék adatok */
+.item-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.item-quantity,
+.item-subtotal {
+    font-size: 0.9rem;
+    color: #dcdcdc;
+}
+
+/* Összeg stílus */
+.cart-total {
+    text-align: right;
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: #ffcc00; /* Arany szín az összeg kiemelésére */
+    font-weight: bold;
+}
+
+/* Gombok stílusa */
+.cart-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Üres kosár üzenet */
+.empty-cart {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #cccccc;
+    margin: 20px 0;
+}
