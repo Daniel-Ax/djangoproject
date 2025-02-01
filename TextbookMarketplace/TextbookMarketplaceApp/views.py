@@ -9,8 +9,17 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import TemplateView
 
-from .forms import SellNotesForm, RegistrationForm, EmailChangeForm
+from .forms import SellNotesForm, RegistrationForm, EmailChangeForm, CheckoutForm
 from .models import Product
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views import View
+from .models import (
+    Product,
+    Order,
+    OrderItem
+    )
 
 
 class DeleteProductView(LoginRequiredMixin, View):
@@ -25,6 +34,62 @@ class DeleteProductView(LoginRequiredMixin, View):
         #stfu
         return redirect('index')
 
+class CheckoutView(LoginRequiredMixin, View):
+    template_name = 'checkout.html'
+
+    def get(self, request, *args, **kwargs):
+        cart = request.session.get('cart', {})
+        products = Product.objects.filter(id__in=cart.keys())
+        cart_items = []
+        total_price = 0
+
+        for product in products:
+            quantity = cart[str(product.id)]
+            subtotal = product.price * quantity
+            total_price += subtotal
+            cart_items.append({
+                'product': product,
+                'quantity': quantity,
+                'subtotal': subtotal
+            })
+
+        form = CheckoutForm()
+
+        context = {
+            'form': form,
+            'cart_items': cart_items,
+            'total_price': total_price
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        cart = request.session.get('cart', {})
+        form = CheckoutForm(request.POST)
+
+        if form.is_valid() and cart:
+            order = form.save(commit=False)
+            order.user = request.user
+            order.total_price = sum(
+                Product.objects.get(id=int(pid)).price * qty for pid, qty in cart.items()
+            )
+            order.save()
+
+            # Mentés az OrderItem táblába
+            for product_id, quantity in cart.items():
+                product = Product.objects.get(id=int(product_id))
+                OrderItem.objects.create(
+                    order=order,
+                    product=product,
+                    quantity=quantity,
+                    price=product.price
+                )
+
+            # Kosár ürítése
+            request.session['cart'] = {}
+
+            return render(request, 'order_success.html', {'order': order})
+
+        return render(request, self.template_name, {'form': form})
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -161,3 +226,113 @@ class ProductDetailView(LoginRequiredMixin, TemplateView):
         pk = kwargs.get('pk')
         context['product'] = get_object_or_404(Product, pk=pk)
         return context
+
+
+class AddToCartView(LoginRequiredMixin, View):
+    def post(self, request, product_id):
+        product = get_object_or_404(Product, id=product_id)
+        cart = request.session.get('cart', {})
+
+        # Kosár frissítése
+        if str(product_id) in cart:
+            cart[str(product_id)] += 1
+        else:
+            cart[str(product_id)] = 1
+
+        request.session['cart'] = cart
+        return redirect('cart')  # Kosár oldalra irányítás
+
+class RemoveFromCartView(LoginRequiredMixin, View):
+    def post(self, request, product_id):
+        cart = request.session.get('cart', {})
+
+        # Ha létezik a termék a kosárban, töröljük
+        if str(product_id) in cart:
+            del cart[str(product_id)]
+            request.session['cart'] = cart
+
+        return redirect('cart')
+
+class CheckoutView(LoginRequiredMixin, View):
+    template_name = 'checkout.html'
+
+    def get(self, request, *args, **kwargs):
+        cart = request.session.get('cart', {})
+        products = Product.objects.filter(id__in=cart.keys())
+
+        cart_items = []
+        total_price = 0
+
+        for product in products:
+            quantity = cart[str(product.id)]
+            subtotal = product.price * quantity
+            total_price += subtotal
+            cart_items.append({
+                'product': product,
+                'quantity': quantity,
+                'subtotal': subtotal
+            })
+
+        context = {
+            'cart_items': cart_items,
+            'total_price': total_price
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        cart = request.session.get('cart', {})
+        if not cart:
+            return redirect('cart')
+
+        total_price = 0
+        products = Product.objects.filter(id__in=cart.keys())
+
+        # Rendelés létrehozása
+        order = Order.objects.create(user=request.user, total_price=0)
+
+        for product in products:
+            quantity = cart[str(product.id)]
+            subtotal = product.price * quantity
+            total_price += subtotal
+
+            # OrderItem létrehozása
+            OrderItem.objects.create(
+                order=order,
+                product=product,
+                quantity=quantity,
+                price=product.price
+            )
+
+        order.total_price = total_price
+        order.save()
+
+        # Kosár ürítése
+        request.session['cart'] = {}
+
+        return render(request, 'order_success.html', {'order': order})
+
+class CartView(LoginRequiredMixin, View):
+    template_name = 'cart.html'
+
+    def get(self, request, *args, **kwargs):
+        cart = request.session.get('cart', {})
+        products = Product.objects.filter(id__in=cart.keys())
+
+        cart_items = []
+        total_price = 0
+
+        for product in products:
+            quantity = cart[str(product.id)]
+            subtotal = product.price * quantity
+            total_price += subtotal
+            cart_items.append({
+                'product': product,
+                'quantity': quantity,
+                'subtotal': subtotal
+            })
+
+        context = {
+            'cart_items': cart_items,
+            'total_price': total_price
+        }
+        return render(request, self.template_name, context)

@@ -35,6 +35,11 @@
                         <p class="card-text">Posted: {{ product.date_posted|date:"F d, Y" }}</p>
                         {% if request.user.is_authenticated %}
                             <a href="{{ product.get_absolute_url }}" class="btn btn-info">Information</a>
+                                    <!-- Add to Cart gomb, amely POST kérést küld -->
+                            <form method="POST" action="{% url 'add_to_cart' product.id %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">Add to Cart</button>
+                            </form>
                         {% endif %}
                     </div>
                 </div>

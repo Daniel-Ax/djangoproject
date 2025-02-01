@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="success-container">
+    <h2 class="success-title">🎉 Order Successful!</h2>
+    <p class="success-message">Thank you for your order, {{ order.user.username }}!</p>
+    <p class="order-details">Order ID: <strong>{{ order.id }}</strong></p>
+    <p class="order-details">Total Paid: <strong>{{ order.total_price }} HUF</strong></p>
+    <a href="/" class="btn btn-primary">Continue Shopping</a>
+</div>
+{% endblock %}

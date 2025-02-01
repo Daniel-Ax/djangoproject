@@ -21,14 +21,414 @@
 
 @media (max-width: 767px) {
     .card {
+        transition: transform 0.2s ease-in-out; /* Finom animáció a lebegtetéshez */
+        border-radius: 8px;                    /* Lekerekített sarkok a modern hatásért */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Árnyék a mélység érzetéért */
+        border: 1px solid #666666;             /* Finom szegély a kontraszt növeléséhez */
+        color: #ffffff !important;             /* Fehér szöveg az olvashatóságért */
+        background-color: #4d4d4d !important;  /* Világosabb szürke a kiemeléshez */
         margin: 2%;
         width: 96%;
     }
 }
 @media (min-width: 768px) {
     .card {
+        transition: transform 0.2s ease-in-out; /* Finom animáció a lebegtetéshez */
+        border-radius: 8px;                    /* Lekerekített sarkok a modern hatásért */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Árnyék a mélység érzetéért */
+        border: 1px solid #666666;             /* Finom szegély a kontraszt növeléséhez */
+        color: #ffffff !important;             /* Fehér szöveg az olvashatóságért */
+        background-color: #4d4d4d !important;  /* Világosabb szürke a kiemeléshez */
         margin: 1%;
         flex: 0 0 auto;
         width: 30%;
     }
+}
+
+/* Kosár konténer stílusok */
+.cart-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #4d4d4d; /* Világosabb szürke a sötét háttérhöz */
+    color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Cím stílus */
+.cart-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #f1f1f1;
+    border-bottom: 2px solid #666666;
+    padding-bottom: 10px;
+}
+
+/* Kosár elemek */
+.cart-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #5c5c5c;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.cart-item:hover {
+    background-color: #6d6d6d; /* Hover effektus */
+}
+
+/* Termék adatok */
+.item-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.item-quantity,
+.item-subtotal {
+    font-size: 0.9rem;
+    color: #dcdcdc;
+}
+
+/* Összeg stílus */
+.cart-total {
+    text-align: right;
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: #ffcc00; /* Arany szín az összeg kiemelésére */
+    font-weight: bold;
+}
+
+/* Gombok stílusa */
+.cart-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Üres kosár üzenet */
+.empty-cart {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #cccccc;
+    margin: 20px 0;
+}
+
+.error-container {
+    text-align: center;
+    padding: 50px;
+    background-color: #4d4d4d;
+    color: #ffffff;
+    border-radius: 10px;
+    margin: 50px auto;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+.error-container h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.error-container p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.error-container .btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.error-container .btn:hover {
+    background-color: #0056b3;
+}
+
+/* ---- Checkout oldal ---- */
+.checkout-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #4d4d4d;  /* Világosabb szürke */
+    color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+.checkout-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #f1f1f1;
+    border-bottom: 2px solid #666666;
+    padding-bottom: 10px;
+}
+
+.checkout-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.checkout-item {
+    display: flex;
+    justify-content: space-between;
+    background-color: #5c5c5c;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.checkout-item:hover {
+    background-color: #6d6d6d;
+}
+
+.item-name, .item-quantity, .item-subtotal {
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+.checkout-total {
+    text-align: right;
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: #ffcc00;  /* Arany szín a kiemeléshez */
+    font-weight: bold;
+}
+
+.checkout-form {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* ---- Order Success oldal ---- */
+.success-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #4caf50;  /* Zöld siker szín */
+    color: #ffffff;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.success-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.success-message {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.order-details {
+    font-size: 1.1rem;
+    margin: 5px 0;
+    color: #e8f5e9;
+}
+
+/* ---- Gombok ---- */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.empty-cart {
+    text-align: center;
+    color: #cccccc;
+    font-size: 1.2rem;
+    margin: 20px 0;
+}
+.checkout-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #4d4d4d;
+    color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+.checkout-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #f1f1f1;
+    border-bottom: 2px solid #666666;
+    padding-bottom: 10px;
+}
+
+.checkout-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.checkout-item {
+    display: flex;
+    justify-content: space-between;
+    background-color: #5c5c5c;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.checkout-item:hover {
+    background-color: #6d6d6d;
+}
+
+.checkout-total {
+    text-align: right;
+    font-size: 1.5rem;
+    margin: 20px 0;
+    color: #ffcc00;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #777;
+    border-radius: 5px;
+    background-color: #5c5c5c;
+    color: #ffffff;
+    transition: background 0.3s ease, border 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus {
+    background-color: #6d6d6d;
+    border-color: #999;
+    outline: none;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    margin-top: 10px;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.empty-cart {
+    text-align: center;
+    color: #cccccc;
+    font-size: 1.2rem;
+    margin: 20px 0;
 }
