@@ -12,7 +12,6 @@
                         <span class="item-name">{{ item.product.name }}</span>
                         <span class="item-quantity">Quantity: {{ item.quantity }}</span>
                         <span class="item-subtotal">Subtotal: {{ item.subtotal }} HUF</span>
-                        
                     </div>
                     <form method="POST" action="{% url 'remove_from_cart' item.product.id %}" style="display: inline;">
                         {% csrf_token %}
@@ -27,7 +26,7 @@
         </div>
 
         <div class="cart-actions">
-            <a href="/" class="btn btn-secondary">Continue Shopping</a>
+            <a href="{% url 'checkout' %}" class="btn btn-success">Proceed to Checkout</a>
         </div>
     {% else %}
         <p class="empty-cart">Your cart is empty.</p>

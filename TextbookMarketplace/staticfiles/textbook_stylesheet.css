@@ -156,3 +156,38 @@
     color: #cccccc;
     margin: 20px 0;
 }
+
+.error-container {
+    text-align: center;
+    padding: 50px;
+    background-color: #4d4d4d;
+    color: #ffffff;
+    border-radius: 10px;
+    margin: 50px auto;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+.error-container h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.error-container p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.error-container .btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.error-container .btn:hover {
+    background-color: #0056b3;
+}

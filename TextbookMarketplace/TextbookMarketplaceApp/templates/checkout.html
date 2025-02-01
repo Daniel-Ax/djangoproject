@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="checkout-container">
+    <h2 class="checkout-title">🛒 Checkout</h2>
+
+    {% if cart_items %}
+        <ul class="checkout-items">
+            {% for item in cart_items %}
+                <li class="checkout-item">
+                    <span class="item-name">{{ item.product.name }}</span>
+                    <span class="item-quantity">Quantity: {{ item.quantity }}</span>
+                    <span class="item-subtotal">Subtotal: {{ item.subtotal }} HUF</span>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="checkout-total">
+            <h3>Total: {{ total_price }} HUF</h3>
+        </div>
+
+        <!-- Checkout form with shipping and billing details -->
+        <form method="POST" class="checkout-form">
+            {% csrf_token %}
+
+            <h4>Billing Information</h4>
+            <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <input type="text" name="full_name" id="full_name" class="form-control" placeholder="John Doe" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="john@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" name="phone" id="phone" class="form-control" placeholder="+1234567890" required>
+            </div>
+
+            <h4>Shipping Information</h4>
+            <div class="form-group">
+                <label for="address">Street Address</label>
+                <input type="text" name="address" id="address" class="form-control" placeholder="123 Main Street" required>
+            </div>
+
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" name="city" id="city" class="form-control" placeholder="Budapest" required>
+            </div>
+
+            <div class="form-group">
+                <label for="postal_code">Postal Code</label>
+                <input type="text" name="postal_code" id="postal_code" class="form-control" placeholder="1234" required>
+            </div>
+
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" name="country" id="country" class="form-control" placeholder="Hungary" required>
+            </div>
+
+            <button type="submit" class="btn btn-success">Place Order</button>
+        </form>
+
+        <a href="{% url 'cart' %}" class="btn btn-secondary">Back to Cart</a>
+    {% else %}
+        <p class="empty-cart">Your cart is empty.</p>
+        <a href="/" class="btn btn-primary">Continue Shopping</a>
+    {% endif %}
+</div>
+{% endblock %}
