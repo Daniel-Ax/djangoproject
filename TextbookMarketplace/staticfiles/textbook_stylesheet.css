@@ -21,12 +21,24 @@
 
 @media (max-width: 767px) {
     .card {
+        transition: transform 0.2s ease-in-out; /* Finom animáció a lebegtetéshez */
+        border-radius: 8px;                    /* Lekerekített sarkok a modern hatásért */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Árnyék a mélység érzetéért */
+        border: 1px solid #666666;             /* Finom szegély a kontraszt növeléséhez */
+        color: #ffffff !important;             /* Fehér szöveg az olvashatóságért */
+        background-color: #4d4d4d !important;  /* Világosabb szürke a kiemeléshez */
         margin: 2%;
         width: 96%;
     }
 }
 @media (min-width: 768px) {
     .card {
+        transition: transform 0.2s ease-in-out; /* Finom animáció a lebegtetéshez */
+        border-radius: 8px;                    /* Lekerekített sarkok a modern hatásért */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Árnyék a mélység érzetéért */
+        border: 1px solid #666666;             /* Finom szegély a kontraszt növeléséhez */
+        color: #ffffff !important;             /* Fehér szöveg az olvashatóságért */
+        background-color: #4d4d4d !important;  /* Világosabb szürke a kiemeléshez */
         margin: 1%;
         flex: 0 0 auto;
         width: 30%;
