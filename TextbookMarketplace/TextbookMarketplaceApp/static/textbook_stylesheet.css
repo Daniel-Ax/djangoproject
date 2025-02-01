@@ -3,7 +3,9 @@
 }
 
 .maincontainer {
-    padding: 1vw;
+    padding: 1vw !important;
+    color: #ffffff !important;
+    background-color: #333333 !important;
 }
 
 .col-center {
