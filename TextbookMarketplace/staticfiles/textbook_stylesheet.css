@@ -1,0 +1,34 @@
+.navbar-brand {
+    margin-left: 1rem;
+}
+
+.maincontainer {
+    padding: 1vw !important;
+    color: #ffffff !important;
+    background-color: #333333 !important;
+}
+
+.col-center {
+    margin: 0 auto;
+}
+
+.center-items {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 767px) {
+    .card {
+        margin: 2%;
+        width: 96%;
+    }
+}
+@media (min-width: 768px) {
+    .card {
+        margin: 1%;
+        flex: 0 0 auto;
+        width: 30%;
+    }
+}
